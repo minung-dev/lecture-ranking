@@ -1,0 +1,59 @@
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, calc(var(--step) * 100%), 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translate3d(0, calc(var(--step) * -100%), 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInUp {
+  animation-name: slideInUp;
+}
+.slideInDown {
+  animation-name: slideInDown;
+}
+
+.step1 {
+  --step: 1;
+}
+.step2 {
+  --step: 2;
+}
+.step3 {
+  --step: 3;
+}
+.step4 {
+  --step: 4;
+}
+.step5 {
+  --step: 5;
+}
+.step6 {
+  --step: 6;
+}
+.step7 {
+  --step: 7;
+}
+.step8 {
+  --step: 8;
+}
+.step9 {
+  --step: 9;
+}
+.step10 {
+  --step: 10;
+}
