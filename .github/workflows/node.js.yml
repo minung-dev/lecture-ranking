@@ -39,7 +39,7 @@ jobs:
       id: cache_dist
       with:
         path: dist
-        key: ${{ runner.os }}-dist-${{ hashFiles('dist/index.js') }}
+        key: ${{ runner.os }}-dist-${{ hashFiles('**/index.js') }}
         restore-keys: ${{ runner.os }}-dist-
 
     - name: Build
