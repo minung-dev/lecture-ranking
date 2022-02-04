@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prestart": "yarn build",
     "start": "node dist/index.js"
   },
   "devDependencies": {
