@@ -1,6 +1,8 @@
 import * as github from '@actions/github';
 import * as core from '@actions/core';
 import axios, { AxiosResponse } from 'axios';
+import { exec } from 'shelljs';
+import * as fs from 'fs';
 
 type Lecture = {
   sequence: number,
@@ -22,15 +24,6 @@ const createIssueBody = (lectures: Lecture[]) => {
 }
 
 async function run() {
-    // This should be a token with access to your repository scoped in as a secret.
-    // The YML workflow will need to set myToken with the GitHub Secret Token
-    // myToken: ${{ secrets.GITHUB_TOKEN }}
-    // https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token#about-the-github_token-secret
-    // const token = core.getInput('GH_TOKEN');
-    const token = process.env.GH_TOKEN;
-    const octokit = github.getOctokit(token)
-    
-    
     const lectures: Lecture[] = await createLectures(
       axios.get('https://edu.goorm.io/api/lecture/list/detail?limit=20&page=1&sort=newest'),
       ({ list }) => (
@@ -45,12 +38,38 @@ async function run() {
       )
     );
 
-    const context = github.context;
-    const newIssue = await octokit.rest.issues.create({
-      ...context.repo,
-      title: new Date().toISOString().slice(0, 10),
-      body: createIssueBody(lectures),
-    });
+    const [lastLecture] = lectures;
+
+    const lastObj = {
+      goorm: lastLecture.sequence,
+    }
+    
+    const title = new Date().toISOString().slice(0, 10);
+    await fs.writeFileSync(`./history/last.json`, JSON.stringify(lastObj));
+    await fs.writeFileSync(`./history/goorm/${title}.json`, JSON.stringify(lectures));
+
+    exec(`git config user.email "bot@minung.dev"`);
+    exec(`git config user.name "Bot"`);
+    exec(`git add history`);
+    exec(`git commit -m "Add ${title} history"`);
+
+    exec(`git push`);
+
+
+    // This should be a token with access to your repository scoped in as a secret.
+    // The YML workflow will need to set myToken with the GitHub Secret Token
+    // myToken: ${{ secrets.GITHUB_TOKEN }}
+    // https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token#about-the-github_token-secret
+    // const token = core.getInput('GH_TOKEN');
+    // const token = process.env.GH_TOKEN;
+    // const octokit = github.getOctokit(token)
+
+    // const context = github.context;
+    // const newIssue = await octokit.rest.issues.create({
+    //   ...context.repo,
+    //   title,
+    //   body: createIssueBody(lectures),
+    // });
 }
 
 run();
