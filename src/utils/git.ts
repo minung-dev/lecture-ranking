@@ -23,7 +23,7 @@ export const createHistoryFileAndPush = (key: string, lectures: Lecture[]) => {
   exec(`git config user.email "bot@minung.dev"`);
   exec(`git config user.name "Bot"`);
   exec(`git add history`);
-  exec(`git commit -m "Add ${dateString} history"`);
+  exec(`git commit -m "Add ${dateString} history - ${key}"`);
 
   exec(`git push`);
 }

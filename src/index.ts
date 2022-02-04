@@ -24,6 +24,19 @@ const runnerMap: RunnerMap = {
         };
       })
     )
+  },
+  inflearn: {
+    apiUrl: 'https://www.inflearn.com/api/courses?order=recent&page=1',
+    converter: ({ courses }) => (
+      courses.map((item: any) => {
+        return {
+          title: item.title,
+          sequence: item.id,
+          url: `https://www.inflearn.com/course/${item.slug}`,
+          image: '',
+        };
+      })
+    ),
   }
 }
 
@@ -34,15 +47,19 @@ const createLectures = async (fetch: Promise<AxiosResponse<any, any>>, converter
 };
 
 async function run() {
-  const key = 'goorm';
-  const { apiUrl, converter } = runnerMap[key];
-  const lectures: Lecture[] = await createLectures(
-    axios.get(apiUrl),
-    converter,
-  );
+  const keys = ['goorm', 'inflearn'];
 
-  createHistoryFileAndPush('goorm', lectures);
-  // await createHistoryIssue('goorm', lectures);
+  // TODO: 한번에 커밋하고 푸시하도록 변경 필요
+  for (let key of keys) {
+    const { apiUrl, converter } = runnerMap[key];
+    const lectures: Lecture[] = await createLectures(
+      axios.get(apiUrl),
+      converter,
+    );
+  
+    createHistoryFileAndPush(key, lectures);
+    // await createHistoryIssue('goorm', lectures);
+  }
 }
 
 run();
