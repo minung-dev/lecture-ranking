@@ -14,11 +14,12 @@ export const createHistoryFileAndPush = (key: string, lectures: Lecture[]) => {
   const [lastLecture] = lectures;
   const lastObj = {
     [key]: lastLecture.sequence,
+    date: dateString,
   };
   
-  mkdir(`./history/goorm`);
-  fs.writeFileSync(`./history/last.json`, JSON.stringify(lastObj));
-  fs.writeFileSync(`./history/goorm/${dateString}.json`, JSON.stringify(lectures));
+  mkdir(`./history/${key}`);
+  fs.writeFileSync(`./history/${key}/last.json`, JSON.stringify(lastObj));
+  fs.writeFileSync(`./history/${key}/${dateString}.json`, JSON.stringify(lectures));
 
   exec(`git config user.email "bot@minung.dev"`);
   exec(`git config user.name "Bot"`);
