@@ -34,13 +34,14 @@ jobs:
     - name: Install
       run: yarn
 
-    - name: Cache build file
-      uses: actions/cache@v2
-      id: cache_dist
-      with:
-        path: dist
-        key: ${{ runner.os }}-dist-${{ hashFiles('**/index.js') }}
-        restore-keys: ${{ runner.os }}-dist-
+    # FIXME: 마지막 sha 기준으로 빌드 확인하도록 변경하기
+    # - name: Cache build file
+    #   uses: actions/cache@v2
+    #   id: cache_dist
+    #   with:
+    #     path: dist
+    #     key: ${{ runner.os }}-dist-${{ hashFiles('**/index.js') }}
+    #     restore-keys: ${{ runner.os }}-dist-
 
     - name: Build
       if: steps.cache_dist.outputs.cache-hit != 'true'
