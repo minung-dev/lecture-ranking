@@ -4,6 +4,13 @@ import axios, { AxiosResponse } from 'axios';
 import { exec } from 'shelljs';
 import * as fs from 'fs';
 
+const mkdir = (dirPath: string) => {
+  const isExists = fs.existsSync(dirPath);
+  if(!isExists) {
+      fs.mkdirSync(dirPath, { recursive: true } );
+  }
+}
+
 type Lecture = {
   sequence: number,
   title: string,
@@ -45,8 +52,9 @@ async function run() {
     }
     
     const title = new Date().toISOString().slice(0, 10);
-    await fs.writeFileSync(`./history/last.json`, JSON.stringify(lastObj));
-    await fs.writeFileSync(`./history/goorm/${title}.json`, JSON.stringify(lectures));
+    mkdir(`./history/goorm`);
+    fs.writeFileSync(`./history/last.json`, JSON.stringify(lastObj));
+    fs.writeFileSync(`./history/goorm/${title}.json`, JSON.stringify(lectures));
 
     exec(`git config user.email "bot@minung.dev"`);
     exec(`git config user.name "Bot"`);
