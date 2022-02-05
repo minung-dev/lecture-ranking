@@ -8,18 +8,16 @@ const mkdir = (dirPath: string) => {
   }
 }
 
-export const createHistoryFileAndPush = (key: string, lectures: Lecture[]) => {
+export const createHistoryFileAndPush = (key: string, data: any) => {
   const dateString = new Date().toISOString().slice(0, 10);
 
-  const [lastLecture] = lectures;
   const lastObj = {
-    id: lastLecture.id,
     date: dateString,
   };
   
   mkdir(`./history/${key}`);
   fs.writeFileSync(`./history/${key}/last.json`, JSON.stringify(lastObj));
-  fs.writeFileSync(`./history/${key}/${dateString}.json`, JSON.stringify(lectures));
+  fs.writeFileSync(`./history/${key}/${dateString}.json`, JSON.stringify(data));
 
   exec(`git config user.email "bot@minung.dev"`);
   exec(`git config user.name "Bot"`);
