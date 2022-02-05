@@ -65,7 +65,7 @@ async function run() {
     const slicedLectures = lectures.slice(0, index);
 
     createHistoryFileAndPush(key, slicedLectures);
-    await createHistoryIssue(key, slicedLectures);
+    // await createHistoryIssue(key, slicedLectures);
   }
 }
 

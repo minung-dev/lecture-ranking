@@ -5,6 +5,8 @@ name: Post
 
 on:
   workflow_dispatch:
+  schedule:
+  - cron: '0 1 * * *'
 
 jobs:
   post:
