@@ -22,8 +22,8 @@ const runnerMap: RunnerMap = {
     api: {
       latest: 'https://edu.goorm.io/api/lecture/list/detail?limit=20&page=1&sort=newest',
       popular: 'https://edu.goorm.io/api/lecture/list/detail?limit=20&page=1&sort=mostPopular',
-      popularPaid: 'https://edu.goorm.io/api/lecture/list/detail?limit=20&page=1&sort=mostPopular&is_toll=false',
-      popularFree: 'https://edu.goorm.io/api/lecture/list/detail?limit=20&page=1&sort=mostPopular&is_toll=true',
+      popularPaid: 'https://edu.goorm.io/api/lecture/list/detail?limit=20&page=1&sort=mostPopular&is_toll=true',
+      popularFree: 'https://edu.goorm.io/api/lecture/list/detail?limit=20&page=1&sort=mostPopular&is_toll=false',
     },
     converter: ({ list }) => (
       list.map((item: any) => {
