@@ -5,7 +5,7 @@ const createIssueBody = (lectures: Lecture[]) => {
   const lectureListString = lectures.map(lecture => {
     return `- [${lecture.title}](${lecture.url})`
   }).join('\n');
-  return `## Goorm\n\n${lectureListString}`;
+  return lectureListString;
 }
 
 export const createHistoryIssue = async (key: string, lectures: Lecture[]) => {
@@ -24,5 +24,6 @@ export const createHistoryIssue = async (key: string, lectures: Lecture[]) => {
     ...context.repo,
     title: dateString,
     body: createIssueBody(lectures),
+    labels: [key],
   });
 }

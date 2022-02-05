@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import * as fs from 'fs';
 
 import { createHistoryFileAndPush } from './utils/git';
-// import { createHistoryIssue } from './utils/github';
+import { createHistoryIssue } from './utils/github';
 
 type Converter = (data: any) => Lecture[];
 type RunnerMap = {
@@ -65,7 +65,7 @@ async function run() {
     const slicedLectures = lectures.slice(0, index);
 
     createHistoryFileAndPush(key, slicedLectures);
-    // await createHistoryIssue('goorm', lectures);
+    await createHistoryIssue(key, slicedLectures);
   }
 }
 
