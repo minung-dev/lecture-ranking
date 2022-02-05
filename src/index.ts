@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import * as fs from 'fs';
 
 import { createHistoryFileAndPush } from './utils/git';
 // import { createHistoryIssue } from './utils/github';
@@ -56,8 +57,14 @@ async function run() {
       axios.get(apiUrl),
       converter,
     );
-  
-    createHistoryFileAndPush(key, lectures);
+
+    // 마지막 id 앞 lecture만 남기기
+    const data = fs.readFileSync(`./history/${key}/last.json`);
+    const { id } = JSON.parse(data.toString());
+    const index = lectures.findIndex(lecture => lecture.id === id);
+    const slicedLectures = lectures.slice(0, index);
+
+    createHistoryFileAndPush(key, slicedLectures);
     // await createHistoryIssue('goorm', lectures);
   }
 }
