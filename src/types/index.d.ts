@@ -1,5 +1,5 @@
 type Lecture = {
-  sequence: number,
+  id: number,
   title: string,
   url: string,
   image: string,

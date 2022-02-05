@@ -13,7 +13,7 @@ export const createHistoryFileAndPush = (key: string, lectures: Lecture[]) => {
 
   const [lastLecture] = lectures;
   const lastObj = {
-    [key]: lastLecture.sequence,
+    id: lastLecture.id,
     date: dateString,
   };
   

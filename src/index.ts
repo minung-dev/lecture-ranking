@@ -17,8 +17,8 @@ const runnerMap: RunnerMap = {
     converter: ({ list }) => (
       list.map((item: any) => {
         return {
+          id: item.sequence,
           title: item.subject,
-          sequence: item.sequence,
           url: `https://edu.goorm.io/lecture/${item.sequence}/${item.url_slug}`,
           image: item.coverImage,
         };
@@ -30,8 +30,8 @@ const runnerMap: RunnerMap = {
     converter: ({ courses }) => (
       courses.map((item: any) => {
         return {
+          id: item.id,
           title: item.title,
-          sequence: item.id,
           url: `https://www.inflearn.com/course/${item.slug}`,
           image: '',
         };
