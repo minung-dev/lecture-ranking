@@ -41,7 +41,7 @@ const runnerMap: RunnerMap = {
       latest: 'https://www.inflearn.com/api/courses?order=recent&page=1',
       popular: 'https://www.inflearn.com/api/courses?order=popular',
       popularPaid: 'https://www.inflearn.com/api/courses?charge=paid&order=popular',
-      popularFree: 'https://www.inflearn.com/api/courses?charge=paid&order=popular',
+      popularFree: 'https://www.inflearn.com/api/courses?charge=free&order=popular',
     },
     converter: ({ courses }) => (
       courses.map((item: any) => {
