@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 function Home() {
   const [type, setType] = useState('goorm')
   const [date, setDate] = useState(dayjs().add(-1, "day").format("YYYY-MM-DD"));
-  const [lectures, setLectures] = useState([]);
+  const [lectures, setLectures] = useState<any[]>([]);
   useEffect(() => {
     (async () => {
       try {
