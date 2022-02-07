@@ -32,6 +32,7 @@ const runnerMap: RunnerMap = {
           title: item.subject,
           url: `https://edu.goorm.io/lecture/${item.sequence}/${item.url_slug}`,
           image: item.coverImage,
+          instructor: item.owner.name,
         };
       })
     )
@@ -50,6 +51,7 @@ const runnerMap: RunnerMap = {
           title: item.title,
           url: `https://www.inflearn.com/course/${item.slug}`,
           image: '',
+          instructor: item._.instructors[0]._.user.name,
         };
       })
     ),

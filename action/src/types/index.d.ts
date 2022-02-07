@@ -3,4 +3,5 @@ type Lecture = {
   title: string,
   url: string,
   image: string,
+  instructor: string,
 };
