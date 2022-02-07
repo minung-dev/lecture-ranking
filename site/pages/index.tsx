@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
 function Home() {
-  const [type, setType] = useState('goorm')
+  const [type, setType] = useState("goorm");
   const [date, setDate] = useState(dayjs().add(-1, "day").format("YYYY-MM-DD"));
   const [lectures, setLectures] = useState<any[]>([]);
   useEffect(() => {
@@ -30,14 +30,19 @@ function Home() {
   };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { currentTarget: { value } } = e;
+    const {
+      currentTarget: { value },
+    } = e;
     setType(value);
   };
 
   return (
-    <div className="mockup-window bg-base-300">
-      <div className="flex flex-col justify-center px-4 py-16 bg-base-200">
-        <select className="select select-bordered w-full max-w-xs" onChange={handleSelect}>
+    <div className="border mockup-window border-base-300 bg-base-200">
+      <div className="flex flex-col justify-center px-4 py-16 border-t border-base-300 bg-base-200">
+        <select
+          className="select select-bordered w-full max-w-xs"
+          onChange={handleSelect}
+        >
           <option value="goorm">goorm</option>
           <option value="inflearn">inflearn</option>
         </select>
@@ -56,7 +61,25 @@ function Home() {
           </button>
         </div>
         {date}
-        <div className="overflow-x-auto">
+        {lectures.map((lecture, index) => (
+          <div className="alert bg-base-100 mt-4" key={lecture.id}>
+            <div className="flex-1 items-center truncate">
+              <span className="font-bold text-lg mr-4">{index + 1}</span>
+              <label>{lecture.title}</label>
+            </div>
+            <div className="flex-none">
+              <a
+                className="btn btn-sm btn-ghost"
+                href={lecture.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                보기
+              </a>
+            </div>
+          </div>
+        ))}
+        {/* <div className="overflow-x-auto">
           <table className="table w-full">
             <thead>
               <tr>
@@ -75,7 +98,7 @@ function Home() {
               ))}
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     </div>
   );
