@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: '/api/lectures/:comp/:date',
-        destination: `https://raw.githubusercontent.com/hmu332233/action.new-lecture/main/history/:comp/:date.json`,
+        destination: `https://raw.githubusercontent.com/hmu332233/action.new-lecture/main/action/history/:comp/:date.json`,
       },
     ]
   },
