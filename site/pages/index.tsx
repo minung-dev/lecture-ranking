@@ -1,10 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import dayjs from "dayjs";
+import 'animate.css';
+
+const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
+  if (prevIndex === undefined) {
+    return 'animate__slideInLeft';
+  }
+
+  if (prevIndex === currentIndex) {
+    return '';
+  }
+
+  return prevIndex > currentIndex ? 'animate__slideInUp' : 'animate__slideInDown';
+};
 
 function Home() {
   const [type, setType] = useState("goorm");
   const [date, setDate] = useState(dayjs().add(-1, "day").format("YYYY-MM-DD"));
+  const prevOrderMap = useRef<{ [key: string]: number }>({});
   const [lectures, setLectures] = useState<any[]>([]);
   useEffect(() => {
     (async () => {
@@ -12,7 +26,11 @@ function Home() {
         const data = await fetch(`/api/lectures/${type}/${date}`).then((res) =>
           res.json()
         );
+
+        prevOrderMap.current = lectures.reduce((prev, lecture, index) => ({ ...prev, [lecture.id]: index }), {});
         setLectures(data.popular);
+        
+        
       } catch (err) {
         console.log(err);
       }
@@ -62,7 +80,7 @@ function Home() {
         </div>
         {date}
         {lectures.map((lecture, index) => (
-          <div className="card shadow-lg compact side bg-base-100 mt-6" key={lecture.id}>
+          <div className={`card shadow-lg compact side bg-base-100 mt-6 animate__animated ${getAnimationClass(prevOrderMap.current[lecture.id], index)}`} key={lecture.id}>
             <div className="flex-row items-center space-x-5 card-body">
               <div className="flex-0">
                 <span className="text-lg font-bold text-info">{index + 1}</span>
