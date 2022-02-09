@@ -21,7 +21,7 @@ export const createHistoryFileAndPush = (key: string, data: any) => {
 
   exec(`git config user.email "bot@minung.dev"`);
   exec(`git config user.name "Bot"`);
-  exec(`git checkout data`);
+  exec(`git checkout -t origin/data`);
   exec(`git add history`);
   exec(`git commit -m "Add ${dateString} history - ${key}"`);
 
