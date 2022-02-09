@@ -27,8 +27,11 @@ function Home() {
           res.json()
         );
 
-        prevOrderMap.current = lectures.reduce((prev, lecture, index) => ({ ...prev, [lecture.id]: index }), {});
-        setLectures(data.popular);
+        
+        setLectures(prevLectures => {
+          prevOrderMap.current = prevLectures.reduce((prev, lecture, index) => ({ ...prev, [lecture.id]: index }), {});
+          return data.popular;
+        });
         
         
       } catch (err) {
