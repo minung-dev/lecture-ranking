@@ -18,7 +18,7 @@ function Home() {
         
         setLectures(prevLectures => {
           prevOrderMap.current = prevLectures.reduce((prev, lecture, index) => ({ ...prev, [lecture.id]: index }), {});
-          return data.latest;
+          return data.popular;
         });
         
         

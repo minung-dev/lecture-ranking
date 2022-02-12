@@ -1,10 +1,8 @@
-import 'animate.css';
-
 import styles from './Card.module.css';
 
 const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
   if (prevIndex === undefined) {
-    return 'animate__slideInLeft';
+    return styles.slideInLeft;
   }
 
   if (prevIndex === currentIndex) {
@@ -22,7 +20,7 @@ const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
 
 function Card({ prevOrderMap, lecture, index }: any) {
 return (
-  <div className={`card shadow-lg compact side bg-base-100 mt-6 animate__animated ${getAnimationClass(prevOrderMap.current[lecture.id], index)}`} key={lecture.id}>
+  <div className={`card shadow-lg compact side bg-base-100 mt-6 ${styles.animation} ${getAnimationClass(prevOrderMap.current[lecture.id], index)}`} key={lecture.id}>
   <div className="flex-row items-center space-x-5 card-body">
     <div className="flex-0">
       <span className="text-lg font-bold text-info">{index + 1}</span>
