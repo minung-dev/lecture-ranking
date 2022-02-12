@@ -1,27 +1,27 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from 'react';
 
-import dayjs from "dayjs";
-import Card from "./Card";
+import dayjs from 'dayjs';
+import Card from '../components/Card';
 
 function Home() {
-  const [type, setType] = useState("goorm");
-  const [date, setDate] = useState(dayjs().add(-1, "day").format("YYYY-MM-DD"));
+  const [type, setType] = useState('goorm');
+  const [date, setDate] = useState(dayjs().add(-1, 'day').format('YYYY-MM-DD'));
   const prevOrderMap = useRef<{ [key: string]: number }>({});
   const [lectures, setLectures] = useState<any[]>([]);
   useEffect(() => {
     (async () => {
       try {
         const data = await fetch(`/api/lectures/${type}/${date}`).then((res) =>
-          res.json()
+          res.json(),
         );
 
-        
-        setLectures(prevLectures => {
-          prevOrderMap.current = prevLectures.reduce((prev, lecture, index) => ({ ...prev, [lecture.id]: index }), {});
+        setLectures((prevLectures) => {
+          prevOrderMap.current = prevLectures.reduce(
+            (prev, lecture, index) => ({ ...prev, [lecture.id]: index }),
+            {},
+          );
           return data.popular;
         });
-        
-        
       } catch (err) {
         console.log(err);
       }
@@ -29,12 +29,12 @@ function Home() {
   }, [type, date]);
 
   const handlePrev = () => {
-    const prevDate = dayjs(date).add(-1, "day").format("YYYY-MM-DD");
+    const prevDate = dayjs(date).add(-1, 'day').format('YYYY-MM-DD');
     setDate(prevDate);
   };
 
   const handleNext = () => {
-    const prevDate = dayjs(date).add(1, "day").format("YYYY-MM-DD");
+    const prevDate = dayjs(date).add(1, 'day').format('YYYY-MM-DD');
     setDate(prevDate);
   };
 
