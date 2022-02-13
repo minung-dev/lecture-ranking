@@ -18,17 +18,23 @@ const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
   return `${animationClass} ${diffClass}`;
 };
 
-function Card({ prevOrderMap, lecture, index }: any) {
+type Props = {
+  lecture: Lecture,
+  prevOrder: number,
+  order: number,
+};
+
+function Card({ lecture, prevOrder, order }: Props) {
   return (
     <div
       className={`card shadow-lg compact side bg-base-100 mt-6 ${
         styles.animation
-      } ${getAnimationClass(prevOrderMap.current[lecture.id], index)}`}
+      } ${getAnimationClass(prevOrder, order)}`}
       key={lecture.id}
     >
       <div className="flex-row items-center space-x-5 card-body">
         <div className="flex-0">
-          <span className="text-lg font-bold text-info">{index + 1}</span>
+          <span className="text-lg font-bold text-info">{order + 1}</span>
         </div>
         <div className="flex-1">
           <h2 className="card-title text-lg">{lecture.title}</h2>

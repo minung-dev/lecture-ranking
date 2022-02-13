@@ -3,11 +3,13 @@ import { useEffect, useState, useRef } from 'react';
 import dayjs from 'dayjs';
 import Card from '../components/Card';
 
+const today = dayjs().format('YYYY-MM-DD');
+
 function Home() {
-  const [type, setType] = useState('goorm');
-  const [date, setDate] = useState(dayjs().add(-1, 'day').format('YYYY-MM-DD'));
+  const [type, setType] = useState('inflearn');
+  const [date, setDate] = useState(today);
   const prevOrderMap = useRef<{ [key: string]: number }>({});
-  const [lectures, setLectures] = useState<any[]>([]);
+  const [lectures, setLectures] = useState<Lecture[]>([]);
   useEffect(() => {
     (async () => {
       try {
@@ -50,6 +52,7 @@ function Home() {
       <div className="flex flex-col justify-center px-6 py-10 border-t border-base-300 bg-base-200">
         <select
           className="select select-bordered w-full max-w-xs"
+          value={type}
           onChange={handleSelect}
         >
           <option value="goorm">goorm</option>
@@ -57,13 +60,13 @@ function Home() {
         </select>
         <div className="btn-group">
           <button
-            className="btn btn-outline btn-sm btn-wide"
+            className="btn btn-outline btn-sm"
             onClick={handlePrev}
           >
             이전
           </button>
           <button
-            className="btn btn-outline btn-sm btn-wide"
+            className="btn btn-outline btn-sm"
             onClick={handleNext}
           >
             다음
@@ -71,28 +74,13 @@ function Home() {
         </div>
         {date}
         {lectures.map((lecture, index) => (
-          <Card lecture={lecture} index={index} prevOrderMap={prevOrderMap} />
+          <Card
+            key={lecture.id}
+            lecture={lecture}
+            prevOrder={prevOrderMap.current[lecture.id]}
+            order={index}
+          />
         ))}
-        {/* <div className="overflow-x-auto">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Link</th>
-              </tr>
-            </thead>
-            <tbody>
-              {lectures.map((lecture, index) => (
-                <tr key={lecture.id}>
-                  <th>{index}</th>
-                  <td>{lecture.title}</td>
-                  <td>Link</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
       </div>
     </div>
   );
