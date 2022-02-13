@@ -2,12 +2,13 @@ import { useEffect, useState, useRef } from 'react';
 
 import dayjs from 'dayjs';
 import Card from '../components/Card';
+import Tabs from '../components/Tabs';
 
-const today = dayjs().format('YYYY-MM-DD');
+const todayString = dayjs().format('YYYY-MM-DD');
 
 function Home() {
   const [type, setType] = useState('inflearn');
-  const [date, setDate] = useState(today);
+  const [date, setDate] = useState(todayString);
   const prevOrderMap = useRef<{ [key: string]: number }>({});
   const [lectures, setLectures] = useState<Lecture[]>([]);
   useEffect(() => {
@@ -48,8 +49,9 @@ function Home() {
   };
 
   return (
-    <div className="border mockup-window border-base-300 bg-base-200">
-      <div className="flex flex-col justify-center px-6 py-10 border-t border-base-300 bg-base-200">
+    <div className="border mockup-window border-base-200 bg-base-200">
+      <div className="flex flex-col justify-center py-10 border-t border-base-300 bg-base-200">
+        <div className="px-6">
         <select
           className="select select-bordered w-full max-w-xs"
           value={type}
@@ -72,15 +74,19 @@ function Home() {
             다음
           </button>
         </div>
-        {date}
-        {lectures.map((lecture, index) => (
-          <Card
-            key={lecture.id}
-            lecture={lecture}
-            prevOrder={prevOrderMap.current[lecture.id]}
-            order={index}
-          />
-        ))}
+        <div className="badge badge-lg bg-base-300">{date}</div>
+        </div>
+        <Tabs />
+        <div className="bg-base-100 px-6">
+          {lectures.map((lecture, index) => (
+            <Card
+              key={lecture.id}
+              lecture={lecture}
+              prevOrder={prevOrderMap.current[lecture.id]}
+              order={index}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

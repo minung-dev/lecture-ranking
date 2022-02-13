@@ -27,7 +27,7 @@ type Props = {
 function Card({ lecture, prevOrder, order }: Props) {
   return (
     <div
-      className={`card shadow-lg compact side bg-base-100 mt-6 ${
+      className={`card shadow-lg compact side bg-base-200 mt-6 ${
         styles.animation
       } ${getAnimationClass(prevOrder, order)}`}
       key={lecture.id}
@@ -37,7 +37,7 @@ function Card({ lecture, prevOrder, order }: Props) {
           <span className="text-lg font-bold text-info">{order + 1}</span>
         </div>
         <div className="flex-1">
-          <h2 className="card-title text-lg">{lecture.title}</h2>
+          <h2 className="card-title text-base">{lecture.title}</h2>
           <p className="text-base-content text-opacity-40">
             {lecture.instructor || '-'}
           </p>
