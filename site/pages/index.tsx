@@ -7,14 +7,15 @@ import Tabs from '../components/Tabs';
 const todayString = dayjs().format('YYYY-MM-DD');
 
 function Home() {
-  const [type, setType] = useState('inflearn');
+  const [activeTabId, setActiveTabId] = useState('popular');
+  const [service, setService] = useState('inflearn');
   const [date, setDate] = useState(todayString);
   const prevOrderMap = useRef<{ [key: string]: number }>({});
   const [lectures, setLectures] = useState<Lecture[]>([]);
   useEffect(() => {
     (async () => {
       try {
-        const data = await fetch(`/api/lectures/${type}/${date}`).then((res) =>
+        const data = await fetch(`/api/lectures/${service}/${date}/${activeTabId}`).then((res) =>
           res.json(),
         );
 
@@ -23,13 +24,13 @@ function Home() {
             (prev, lecture, index) => ({ ...prev, [lecture.id]: index }),
             {},
           );
-          return data.popular;
+          return data;
         });
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [type, date]);
+  }, [service, date, activeTabId]);
 
   const handlePrev = () => {
     const prevDate = dayjs(date).add(-1, 'day').format('YYYY-MM-DD');
@@ -45,8 +46,12 @@ function Home() {
     const {
       currentTarget: { value },
     } = e;
-    setType(value);
+    setService(value);
   };
+
+  const handleTabItemClick = (id: string) => {
+    setActiveTabId(id);
+  }
 
   return (
     <div className="border mockup-window border-base-200 bg-base-200">
@@ -54,7 +59,7 @@ function Home() {
         <div className="px-6">
         <select
           className="select select-bordered w-full max-w-xs"
-          value={type}
+          value={service}
           onChange={handleSelect}
         >
           <option value="goorm">goorm</option>
@@ -76,7 +81,7 @@ function Home() {
         </div>
         <div className="badge badge-lg bg-base-300">{date}</div>
         </div>
-        <Tabs />
+        <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
         <div className="bg-base-100 px-6">
           {lectures.map((lecture, index) => (
             <Card
