@@ -15,9 +15,9 @@ function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const data = await fetch(`/api/lectures/${service}/${date}/${activeTabId}`).then((res) =>
-          res.json(),
-        );
+        const data = await fetch(
+          `/api/lectures/${service}/${date}/${activeTabId}`,
+        ).then((res) => res.json());
 
         setLectures((prevLectures) => {
           prevOrderMap.current = prevLectures.reduce(
@@ -51,35 +51,29 @@ function Home() {
 
   const handleTabItemClick = (id: string) => {
     setActiveTabId(id);
-  }
+  };
 
   return (
     <div className="border mockup-window border-base-200 bg-base-200">
       <div className="flex flex-col justify-center py-10 border-t border-base-300 bg-base-200">
         <div className="px-6">
-        <select
-          className="select select-bordered w-full max-w-xs"
-          value={service}
-          onChange={handleSelect}
-        >
-          <option value="goorm">goorm</option>
-          <option value="inflearn">inflearn</option>
-        </select>
-        <div className="btn-group">
-          <button
-            className="btn btn-outline btn-sm"
-            onClick={handlePrev}
+          <select
+            className="select select-bordered w-full max-w-xs"
+            value={service}
+            onChange={handleSelect}
           >
-            이전
-          </button>
-          <button
-            className="btn btn-outline btn-sm"
-            onClick={handleNext}
-          >
-            다음
-          </button>
-        </div>
-        <div className="badge badge-lg bg-base-300">{date}</div>
+            <option value="goorm">goorm</option>
+            <option value="inflearn">inflearn</option>
+          </select>
+          <div className="btn-group">
+            <button className="btn btn-outline btn-sm" onClick={handlePrev}>
+              이전
+            </button>
+            <button className="btn btn-outline btn-sm" onClick={handleNext}>
+              다음
+            </button>
+          </div>
+          <div className="badge badge-lg bg-base-300">{date}</div>
         </div>
         <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
         <div className="bg-base-100 px-6">

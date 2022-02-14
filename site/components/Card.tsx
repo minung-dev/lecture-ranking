@@ -19,9 +19,9 @@ const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
 };
 
 type Props = {
-  lecture: Lecture,
-  prevOrder: number,
-  order: number,
+  lecture: Lecture;
+  prevOrder: number;
+  order: number;
 };
 
 function Card({ lecture, prevOrder, order }: Props) {
