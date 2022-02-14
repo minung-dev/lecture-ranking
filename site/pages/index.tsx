@@ -79,7 +79,7 @@ function Home() {
         <div className="bg-base-100 px-6">
           {lectures.map((lecture, index) => (
             <Card
-              key={lecture.id}
+              key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함
               lecture={lecture}
               prevOrder={prevOrderMap.current[lecture.id]}
               order={index}
