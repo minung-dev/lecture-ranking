@@ -18,5 +18,10 @@ export default async function handler(
     `https://raw.githubusercontent.com/hmu332233/action.new-lecture/main/action/history/${service}/${date}.json`,
   ).then((res) => res.json());
 
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=31536000, immutable'
+  )
+
   res.status(200).json(data[type]);
 }
