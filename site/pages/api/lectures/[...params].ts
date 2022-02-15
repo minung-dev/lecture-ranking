@@ -20,7 +20,7 @@ export default async function handler(
     ).then((res) => res.json());
   
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    return res.status(200).json(data[type]);
+    return res.status(200).json(data[type].slice(0, 20));
   } catch (err) {
     return res.status(404).json({ name: 'NotFound' });
   }
