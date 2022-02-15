@@ -18,7 +18,7 @@ export default async function handler(
     const data = await fetch(
       `https://raw.githubusercontent.com/hmu332233/action.new-lecture/main/action/history/${service}/${date}.json`,
     ).then((res) => res.json());
-  
+
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     return res.status(200).json(data[type].slice(0, 20));
   } catch (err) {

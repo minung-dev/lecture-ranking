@@ -30,7 +30,11 @@ type Props = {
 function Card({ lecture, prevOrder, order }: Props) {
   return (
     <div
-      className={classNames('card shadow-lg compact side bg-base-200 mt-6 first:mt-0', styles.animation, getAnimationClass(prevOrder, order))}
+      className={classNames(
+        'card shadow-lg compact side bg-base-200 mt-6 first:mt-0',
+        styles.animation,
+        getAnimationClass(prevOrder, order),
+      )}
       key={lecture.id}
     >
       <div className="flex-row items-center space-x-5 card-body">

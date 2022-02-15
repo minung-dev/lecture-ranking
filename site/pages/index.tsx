@@ -20,7 +20,7 @@ function Home() {
 
       const isSuccess = res.status === 200;
 
-      const data = isSuccess ? (await res.json()) : [];
+      const data = isSuccess ? await res.json() : [];
 
       setLectures((prevLectures) => {
         prevOrderMap.current = prevLectures.reduce(
@@ -65,16 +65,24 @@ function Home() {
             <option value="goorm">goorm</option>
             <option value="inflearn">inflearn</option>
           </select>
-          <h1 className="text-3xl font-bold text-center ml-2">Lecture Ranking!</h1>
+          <h1 className="text-3xl font-bold text-center ml-2">
+            Lecture Ranking!
+          </h1>
         </div>
-        
+
         <div className="px-6">
           <div className="btn-group my-6">
-            <button className="btn btn-outline btn-sm grow" onClick={handlePrev}>
+            <button
+              className="btn btn-outline btn-sm grow"
+              onClick={handlePrev}
+            >
               이전
             </button>
             <button className="btn btn-outline btn-sm grow">{date}</button>
-            <button className="btn btn-outline btn-sm grow" onClick={handleNext}>
+            <button
+              className="btn btn-outline btn-sm grow"
+              onClick={handleNext}
+            >
               다음
             </button>
           </div>
