@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import classNames from 'classnames';
 import styles from './Card.module.css';
 
@@ -28,12 +30,12 @@ type Props = {
 function Card({ lecture, prevOrder, order }: Props) {
   return (
     <div
-      className={classNames('card shadow-lg compact side bg-base-200 mt-6', styles.animation, getAnimationClass(prevOrder, order))}
+      className={classNames('card shadow-lg compact side bg-base-200 mt-6 first:mt-0', styles.animation, getAnimationClass(prevOrder, order))}
       key={lecture.id}
     >
       <div className="flex-row items-center space-x-5 card-body">
         <div className="flex-0">
-          <span className="text-lg font-bold text-success-content">{order + 1}</span>
+          <span className="text-lg font-bold">{order + 1}</span>
         </div>
         <div className="flex-1">
           <h2 className="card-title text-base">{lecture.title}</h2>
@@ -56,4 +58,4 @@ function Card({ lecture, prevOrder, order }: Props) {
   );
 }
 
-export default Card;
+export default memo(Card);
