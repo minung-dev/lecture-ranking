@@ -55,28 +55,32 @@ function Home() {
 
   return (
     <div className="border mockup-window border-base-200 bg-base-200">
-      <div className="flex flex-col justify-center py-10 border-t border-base-300 bg-base-200">
-        <div className="px-6">
+      <div className="flex flex-col justify-center pt-5 border-t border-base-300 bg-base-200">
+        <div className="flex items-center mx-auto">
           <select
-            className="select select-bordered w-full max-w-xs"
+            className="select select-bordered max-w-xs"
             value={service}
             onChange={handleSelect}
           >
             <option value="goorm">goorm</option>
             <option value="inflearn">inflearn</option>
           </select>
-          <div className="btn-group">
-            <button className="btn btn-outline btn-sm" onClick={handlePrev}>
+          <h1 className="text-3xl font-bold text-center ml-2">Lecture Ranking!</h1>
+        </div>
+        
+        <div className="px-6">
+          <div className="btn-group my-6">
+            <button className="btn btn-outline btn-sm grow" onClick={handlePrev}>
               이전
             </button>
-            <button className="btn btn-outline btn-sm" onClick={handleNext}>
+            <button className="btn btn-outline btn-sm grow">{date}</button>
+            <button className="btn btn-outline btn-sm grow" onClick={handleNext}>
               다음
             </button>
           </div>
-          <div className="badge badge-lg bg-base-300">{date}</div>
         </div>
         <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
-        <div className="bg-base-100 px-6 h-100">
+        <div className="bg-base-100 p-6 h-100">
           {lectures.map((lecture, index) => (
             <Card
               key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함
