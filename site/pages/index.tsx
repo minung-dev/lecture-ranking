@@ -14,21 +14,21 @@ function Home() {
   const [lectures, setLectures] = useState<Lecture[]>([]);
   useEffect(() => {
     (async () => {
-      try {
-        const data = await fetch(
-          `/api/lectures/${service}/${date}/${activeTabId}`,
-        ).then((res) => res.json());
+      const res = await fetch(
+        `/api/lectures/${service}/${date}/${activeTabId}`,
+      );
 
-        setLectures((prevLectures) => {
-          prevOrderMap.current = prevLectures.reduce(
-            (prev, lecture, index) => ({ ...prev, [lecture.id]: index }),
-            {},
-          );
-          return data;
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      const isSuccess = res.status === 200;
+
+      const data = isSuccess ? (await res.json()) : [];
+
+      setLectures((prevLectures) => {
+        prevOrderMap.current = prevLectures.reduce(
+          (prev, lecture, index) => ({ ...prev, [lecture.id]: index }),
+          {},
+        );
+        return data;
+      });
     })();
   }, [service, date, activeTabId]);
 
@@ -76,7 +76,7 @@ function Home() {
           <div className="badge badge-lg bg-base-300">{date}</div>
         </div>
         <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
-        <div className="bg-base-100 px-6">
+        <div className="bg-base-100 px-6 h-100">
           {lectures.map((lecture, index) => (
             <Card
               key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함

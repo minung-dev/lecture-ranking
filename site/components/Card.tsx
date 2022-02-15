@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import styles from './Card.module.css';
 
 const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
@@ -27,14 +28,12 @@ type Props = {
 function Card({ lecture, prevOrder, order }: Props) {
   return (
     <div
-      className={`card shadow-lg compact side bg-base-200 mt-6 ${
-        styles.animation
-      } ${getAnimationClass(prevOrder, order)}`}
+      className={classNames('card shadow-lg compact side bg-base-200 mt-6', styles.animation, getAnimationClass(prevOrder, order))}
       key={lecture.id}
     >
       <div className="flex-row items-center space-x-5 card-body">
         <div className="flex-0">
-          <span className="text-lg font-bold text-info">{order + 1}</span>
+          <span className="text-lg font-bold text-success-content">{order + 1}</span>
         </div>
         <div className="flex-1">
           <h2 className="card-title text-base">{lecture.title}</h2>
