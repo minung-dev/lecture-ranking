@@ -29,25 +29,27 @@ type Props = {
 
 function Card({ lecture, prevOrder, order }: Props) {
   return (
-    <div
+    <a
       className={classNames(
-        'card shadow-lg compact side bg-base-200 mt-6 first:mt-0',
+        'card shadow-lg compact cursor-pointer bg-base-200 hover:bg-neutral-focus mt-6 first:mt-0 ',
         styles.animation,
         getAnimationClass(prevOrder, order),
       )}
-      key={lecture.id}
+      href={lecture.url}
+      target="_blank"
+      rel="noreferrer"
     >
       <div className="flex-row items-center space-x-5 card-body">
-        <div className="flex-0">
+        <div>
           <span className="text-lg font-bold">{order + 1}</span>
         </div>
-        <div className="flex-1">
+        <div className="flex-auto truncate">
           <h2 className="card-title text-base">{lecture.title}</h2>
           <p className="text-base-content text-opacity-40">
             {lecture.instructor || '-'}
           </p>
         </div>
-        <div className="flex-0">
+        {/* <div>
           <a
             className="btn btn-sm"
             href={lecture.url}
@@ -56,9 +58,9 @@ function Card({ lecture, prevOrder, order }: Props) {
           >
             Link
           </a>
-        </div>
+        </div> */}
       </div>
-    </div>
+    </a>
   );
 }
 
