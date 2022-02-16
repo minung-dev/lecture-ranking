@@ -58,14 +58,14 @@ function Home() {
       <div className="flex flex-col justify-center pt-5 border-t border-base-300 bg-base-200">
         <div className="flex items-center mx-auto">
           <select
-            className="select select-bordered max-w-xs"
+            className="select select-lg max-w-xs text-xl font-bold"
             value={service}
             onChange={handleSelect}
           >
-            <option value="goorm">goorm</option>
-            <option value="inflearn">inflearn</option>
+            <option value="goorm">Goorm</option>
+            <option value="inflearn">Inflearn</option>
           </select>
-          <h1 className="text-3xl font-bold text-center ml-2">
+          <h1 className="text-3xl font-bold text-center ml-4">
             Lecture Ranking!
           </h1>
         </div>
