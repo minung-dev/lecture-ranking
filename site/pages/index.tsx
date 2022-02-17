@@ -98,10 +98,7 @@ function Home() {
               order={index}
             />
           ))} */}
-          <Table
-            lectures={lectures}
-            prevOrderMap={prevOrderMap.current}
-          />
+          <Table lectures={lectures} prevOrderMap={prevOrderMap.current} />
         </div>
       </div>
     </div>

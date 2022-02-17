@@ -20,8 +20,8 @@ const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
 };
 
 type TableProps = {
-  lectures: Lecture[],
-  prevOrderMap: { [key: string]: number },
+  lectures: Lecture[];
+  prevOrderMap: { [key: string]: number };
 };
 
 function Table({ lectures, prevOrderMap }: TableProps) {
@@ -48,7 +48,7 @@ function Table({ lectures, prevOrderMap }: TableProps) {
       </table>
     </div>
   );
-};
+}
 
 type TableRowProps = {
   lecture: Lecture;
@@ -56,16 +56,21 @@ type TableRowProps = {
   order: number;
 };
 
-const TableRow = memo(({ lecture, prevOrder, order }: TableRowProps) => {
+function TableRow({ lecture, prevOrder, order }: TableRowProps) {
   const diff: number = Math.abs(prevOrder - order);
   return (
-    <tr className={classNames(styles.animation,
-      getAnimationClass(prevOrder, order))} style={{ '--step': diff }}>
+    <tr
+      className={classNames(
+        styles.animation,
+        getAnimationClass(prevOrder, order),
+      )}
+      style={{ '--step': diff }}
+    >
       <th>{order + 1}</th>
       <td className="max-w-xs truncate">{lecture.title}</td>
       <td className="w-32">{lecture.instructor || '-'}</td>
     </tr>
   );
-})
+};
 
 export default Table;
