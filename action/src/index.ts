@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 // import * as fs from 'fs';
 
-import { createHistoryFileAndPush } from './utils/git';
+import { createHistoryFile, commitAndpush } from './utils/git';
 // import { createHistoryIssue } from './utils/github';
 
 type Converter = (data: any) => Lecture[];
@@ -86,7 +86,6 @@ const createLectures = async (url: string, converter: Converter) => {
 async function run() {
   const keys = ['goorm', 'inflearn', 'udemyDev'];
 
-  // TODO: 한번에 커밋하고 푸시하도록 변경 필요
   for (let key of keys) {
     const { api, converter } = runnerMap[key];
 
@@ -105,9 +104,11 @@ async function run() {
     // const index = lectures.findIndex(lecture => lecture.id === id);
     // const recentLectures = lectures.slice(0, index);
 
-    createHistoryFileAndPush(key, results);
+    createHistoryFile(key, results);
     // await createHistoryIssue(key, recentLectures);
   }
+
+  commitAndpush();
 }
 
 run();

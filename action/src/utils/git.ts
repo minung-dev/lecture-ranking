@@ -8,7 +8,7 @@ const mkdir = (dirPath: string) => {
   }
 }
 
-export const createHistoryFileAndPush = (key: string, data: any) => {
+export const createHistoryFile = (key: string, data: any) => {
   const dateString = new Date().toISOString().slice(0, 10);
 
   const lastObj = {
@@ -18,11 +18,14 @@ export const createHistoryFileAndPush = (key: string, data: any) => {
   mkdir(`./history/${key}`);
   fs.writeFileSync(`./history/${key}/last.json`, JSON.stringify(lastObj));
   fs.writeFileSync(`./history/${key}/${dateString}.json`, JSON.stringify(data));
+}
+
+export const commitAndpush = () => {
+  const dateString = new Date().toISOString().slice(0, 10);
 
   exec(`git config user.email "bot@minung.dev"`);
   exec(`git config user.name "Bot"`);
   exec(`git add history`);
-  exec(`git commit -m "Add ${dateString} history - ${key}"`);
-
+  exec(`git commit -m "Add ${dateString} history"`);
   exec(`git push`);
 }
