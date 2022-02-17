@@ -55,7 +55,26 @@ const runnerMap: RunnerMap = {
         };
       })
     ),
-  }
+  },
+  udemyDev: {
+    api: {
+      latest: 'https://www.udemy.com/api-2.0/discovery-units/all_courses/?page_size=16&subcategory=&instructional_level=&lang=&price=&duration=&closed_captions=&subs_filter_type=&sort=newest&category_id=288&source_page=category_page&locale=ko_KR&currency=krw&navigation_locale=en_US&skip_price=true&sos=pc&fl=cat',
+      popular: 'https://www.udemy.com/api-2.0/discovery-units/all_courses/?page_size=16&subcategory=&instructional_level=&lang=&price=&duration=&closed_captions=&subs_filter_type=&sort=popularity&category_id=288&source_page=category_page&locale=ko_KR&currency=krw&navigation_locale=en_US&skip_price=true&sos=pc&fl=cat',
+      popularPaid: 'https://www.udemy.com/api-2.0/discovery-units/all_courses/?page_size=16&subcategory=&instructional_level=&lang=&price=price-paid&duration=&closed_captions=&subs_filter_type=&sort=popularity&category_id=288&source_page=category_page&locale=ko_KR&currency=krw&navigation_locale=en_US&skip_price=true&sos=pc&fl=cat',
+      popularFree: 'https://www.udemy.com/api-2.0/discovery-units/all_courses/?page_size=16&subcategory=&instructional_level=&lang=&price=price-free&duration=&closed_captions=&subs_filter_type=&sort=popularity&category_id=288&source_page=category_page&locale=ko_KR&currency=krw&navigation_locale=en_US&skip_price=true&sos=pc&fl=cat',
+    },
+    converter: ({ unit: { items } }) => (
+      items.map((item: any) => {
+        return {
+          id: item.id,
+          title: item.title,
+          url: `https://www.udemy.com/${item.url}`,
+          image: '',
+          instructor: item.visible_instructors[0].display_name,
+        };
+      })
+    ),
+  },
 }
 
 
@@ -65,7 +84,7 @@ const createLectures = async (url: string, converter: Converter) => {
 };
 
 async function run() {
-  const keys = ['goorm', 'inflearn'];
+  const keys = ['goorm', 'inflearn', 'udemyDev'];
 
   // TODO: 한번에 커밋하고 푸시하도록 변경 필요
   for (let key of keys) {
