@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 
 import dayjs from 'dayjs';
 import Card from '../components/Card';
+import Table from '../components/Table';
 import Tabs from '../components/Tabs';
 
 const todayString = dayjs().format('YYYY-MM-DD');
@@ -89,14 +90,18 @@ function Home() {
         </div>
         <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
         <div className="bg-base-100 p-6 h-100">
-          {lectures.map((lecture, index) => (
+          {/* {lectures.map((lecture, index) => (
             <Card
               key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함
               lecture={lecture}
               prevOrder={prevOrderMap.current[lecture.id]}
               order={index}
             />
-          ))}
+          ))} */}
+          <Table
+            lectures={lectures}
+            prevOrderMap={prevOrderMap.current}
+          />
         </div>
       </div>
     </div>
