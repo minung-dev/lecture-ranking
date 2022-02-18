@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { CSSProperties, memo } from 'react';
 
 import styles from './Table.module.css';
 
@@ -64,7 +64,7 @@ function TableRow({ lecture, prevOrder, order }: TableRowProps) {
         styles.animation,
         getAnimationClass(prevOrder, order),
       )}
-      style={{ '--step': diff }}
+      style={{ '--diff': diff } as CSSProperties}
     >
       <th>{order + 1}</th>
       <td className="max-w-xs truncate">{lecture.title}</td>

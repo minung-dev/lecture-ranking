@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { CSSProperties, memo } from 'react';
 
 import classNames from 'classnames';
 import styles from './Card.module.css';
@@ -12,13 +12,10 @@ const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
     return '';
   }
 
-  const diff: number = Math.abs(prevIndex - currentIndex);
-
   const animationClass =
     prevIndex > currentIndex ? styles.slideInUp : styles.slideInDown;
-  const diffClass = styles[`step${diff}`];
 
-  return `${animationClass} ${diffClass}`;
+  return animationClass;
 };
 
 type Props = {
@@ -28,6 +25,7 @@ type Props = {
 };
 
 function Card({ lecture, prevOrder, order }: Props) {
+  const diff: number = Math.abs(prevOrder - order);
   return (
     <a
       className={classNames(
@@ -38,6 +36,7 @@ function Card({ lecture, prevOrder, order }: Props) {
       href={lecture.url}
       target="_blank"
       rel="noreferrer"
+      style={{ '--diff': diff } as CSSProperties}
     >
       <div className="flex-row items-center space-x-5 card-body">
         <div>
