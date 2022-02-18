@@ -65,6 +65,7 @@ function Home() {
           >
             <option value="goorm">Goorm</option>
             <option value="inflearn">Inflearn</option>
+            <option value="udemyDev">Udemy(개발)</option>
           </select>
           <h1 className="text-3xl font-bold text-center ml-4">
             Lecture Ranking!
