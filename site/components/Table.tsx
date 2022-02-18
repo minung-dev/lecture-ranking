@@ -71,6 +71,6 @@ function TableRow({ lecture, prevOrder, order }: TableRowProps) {
       <td className="w-32">{lecture.instructor || '-'}</td>
     </tr>
   );
-};
+}
 
 export default Table;

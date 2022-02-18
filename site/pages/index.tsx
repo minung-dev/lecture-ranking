@@ -4,6 +4,9 @@ import dayjs from 'dayjs';
 import Card from '../components/Card';
 import Table from '../components/Table';
 import Tabs from '../components/Tabs';
+import Layout from '../components/Layout';
+import DateButtonGroup from '../components/DateButtonGroup';
+import ServiceSelect from '../components/ServiceSelect';
 
 const todayString = dayjs().format('YYYY-MM-DD');
 
@@ -20,7 +23,6 @@ function Home() {
       );
 
       const isSuccess = res.status === 200;
-
       const data = isSuccess ? await res.json() : [];
 
       setLectures((prevLectures) => {
@@ -55,54 +57,31 @@ function Home() {
   };
 
   return (
-    <div className="border mockup-window border-base-200 bg-base-200">
-      <div className="flex flex-col justify-center pt-5 border-t border-base-300 bg-base-200">
-        <div className="flex items-center mx-auto">
-          <select
-            className="select select-lg max-w-xs text-xl font-bold"
-            value={service}
-            onChange={handleSelect}
-          >
-            <option value="goorm">Goorm</option>
-            <option value="inflearn">Inflearn</option>
-            <option value="udemyDev">Udemy(개발)</option>
-          </select>
-          <h1 className="text-3xl font-bold text-center ml-4">
-            Lecture Ranking!
-          </h1>
-        </div>
-
-        <div className="px-6">
-          <div className="btn-group my-6">
-            <button
-              className="btn btn-outline btn-sm grow"
-              onClick={handlePrev}
-            >
-              이전
-            </button>
-            <button className="btn btn-outline btn-sm grow">{date}</button>
-            <button
-              className="btn btn-outline btn-sm grow"
-              onClick={handleNext}
-            >
-              다음
-            </button>
-          </div>
-        </div>
-        <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
-        <div className="bg-base-100 p-6 h-100">
-          {/* {lectures.map((lecture, index) => (
-            <Card
-              key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함
-              lecture={lecture}
-              prevOrder={prevOrderMap.current[lecture.id]}
-              order={index}
-            />
-          ))} */}
-          <Table lectures={lectures} prevOrderMap={prevOrderMap.current} />
-        </div>
+    <Layout>
+      <div className="flex flex-col justify-center items-center px-6">
+        <h1 className="text-3xl font-bold text-center mb-4">
+          Lecture Ranking!
+        </h1>
+        <ServiceSelect value={service} onChange={handleSelect} />
+        <DateButtonGroup
+          date={date}
+          onPrevClick={handlePrev}
+          onNextClick={handleNext}
+        />
       </div>
-    </div>
+      <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
+      <div className="bg-base-100 p-6 h-100 max-h-screen overflow-y-auto">
+        {lectures.map((lecture, index) => (
+          <Card
+            key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함
+            lecture={lecture}
+            prevOrder={prevOrderMap.current[lecture.id]}
+            order={index}
+          />
+        ))}
+        {/* <Table lectures={lectures} prevOrderMap={prevOrderMap.current} /> */}
+      </div>
+    </Layout>
   );
 }
 
