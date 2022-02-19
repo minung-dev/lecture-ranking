@@ -2,6 +2,7 @@ import { CSSProperties, memo } from 'react';
 
 import classNames from 'classnames';
 import styles from './Card.module.css';
+import SwapText from './SwapText';
 
 const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
   if (prevIndex === undefined) {
@@ -39,9 +40,11 @@ function Card({ lecture, prevOrder, order }: Props) {
       style={{ '--diff': diff } as CSSProperties}
     >
       <div className="flex-row items-center space-x-5 card-body">
-        <div>
-          <span className="text-lg font-bold">{order + 1}</span>
-        </div>
+        <SwapText
+          textClassName="text-lg font-bold"
+          prev={prevOrder + 1}
+          next={order + 1}
+        />
         <div className="flex-auto truncate">
           <h2 className="card-title text-base">{lecture.title}</h2>
           <p className="text-base-content text-opacity-40">

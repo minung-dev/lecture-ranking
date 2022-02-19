@@ -27,7 +27,6 @@ type Props = {
 function Tabs({ activeId, onItemClick }: Props) {
   return (
     <div className="tabs">
-      <div className="tab tab-lifted flex-grow" />
       {ITEMS.map((item) => (
         <div
           key={item.id}
@@ -40,7 +39,6 @@ function Tabs({ activeId, onItemClick }: Props) {
           {item.text}
         </div>
       ))}
-      <div className="tab tab-lifted flex-grow" />
     </div>
   );
 }

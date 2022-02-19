@@ -12,3 +12,37 @@ body {
   margin: 0 auto;
   padding-top: 16px;
 }
+
+.animation {
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+}
+
+
+.animation__fadeIn {
+  animation-name: fadeIn;
+}
+
+.animation__fadeOut {
+  animation-name: fadeOut;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
