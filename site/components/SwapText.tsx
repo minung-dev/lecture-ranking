@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styles from './SwapText.module.css';
 
 import classNames from 'classnames';
@@ -31,4 +32,4 @@ function SwapText({ textClassName, prev, next }: Props) {
   );
 }
 
-export default SwapText;
+export default memo(SwapText);

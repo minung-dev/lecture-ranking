@@ -6,17 +6,14 @@ import SwapText from './SwapText';
 
 const getAnimationClass = (prevIndex: number, currentIndex: number): string => {
   if (prevIndex === undefined) {
-    return styles.slideInLeft;
+    return 'slideInLeft';
   }
 
   if (prevIndex === currentIndex) {
     return '';
   }
 
-  const animationClass =
-    prevIndex > currentIndex ? styles.slideInUp : styles.slideInDown;
-
-  return animationClass;
+  return prevIndex > currentIndex ? 'slideInUp' : 'slideInDown';
 };
 
 type Props = {
@@ -30,8 +27,7 @@ function Card({ lecture, prevOrder, order }: Props) {
   return (
     <a
       className={classNames(
-        'card shadow-lg compact cursor-pointer bg-base-200 hover:bg-neutral-focus mt-6 first:mt-0 ',
-        styles.animation,
+        'card shadow-lg compact cursor-pointer bg-base-200 hover:bg-neutral-focus mt-6 first:mt-0 animation',
         getAnimationClass(prevOrder, order),
       )}
       href={lecture.url}
