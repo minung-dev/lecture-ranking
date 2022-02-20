@@ -7,6 +7,7 @@ html {
 }
 
 body {
+  min-width: 400px;
   max-width: 576px;
   width: 100%;
   margin: 0 auto;
@@ -22,23 +23,21 @@ body {
   animation-fill-mode: both;
 }
 
-.slideInUp {
+.animation.slideInUp {
   animation-name: slideInUp;
 }
-.slideInDown {
+.animation.slideInDown {
   animation-name: slideInDown;
 }
-.slideInLeft {
+.animation.slideInLeft {
   animation-name: slideInLeft;
 }
 
-
-
-.animation__fadeIn {
+.animation.fadeIn {
   animation-name: fadeIn;
 }
 
-.animation__fadeOut {
+.animation.fadeOut {
   animation-name: fadeOut;
 }
 

@@ -15,7 +15,7 @@ function SwapText({ textClassName, prev, next }: Props) {
       {!!prev && (
         <span
           className={classNames(
-            'animation animation__fadeOut',
+            'animation fadeOut',
             styles.SwapText__text,
             textClassName,
           )}
@@ -24,7 +24,7 @@ function SwapText({ textClassName, prev, next }: Props) {
         </span>
       )}
       <span
-        className={classNames('animation animation__fadeIn', textClassName)}
+        className={classNames('animation fadeIn', textClassName)}
       >
         {next}
       </span>

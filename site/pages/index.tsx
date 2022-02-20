@@ -10,6 +10,16 @@ import ServiceSelect from '../components/ServiceSelect';
 
 const today = dayjs();
 
+const fetchLectures = async (service: string, date: string, type: string): Promise<Lecture[]> => {
+  const res = await fetch(
+    `/api/lectures/${service}/${date}/${type}`,
+  );
+
+  const isSuccess = res.status === 200;
+  return isSuccess ? await res.json() : [];
+};
+
+
 function Home() {
   const [activeTabId, setActiveTabId] = useState('popular');
   const [service, setService] = useState('inflearn');
@@ -24,27 +34,17 @@ function Home() {
       // const nextDateString = date.add(1, 'day').format('YYYY-MM-DD');
 
       // NOTE: 미리 api 호출해서 캐싱해두는 목적
-      // fetch(
-      //   `/api/lectures/${service}/${prevDateString}/${activeTabId}`,
-      // );
-      // fetch(
-      //   `/api/lectures/${service}/${nextDateString}/${activeTabId}`,
-      // );
+      // fetchLectures(service, prevDateString, activeTabId);
+      // fetchLectures(service, nextDateString, activeTabId);
 
-
-      const res = await fetch(
-        `/api/lectures/${service}/${currentDateString}/${activeTabId}`,
-      );
-
-      const isSuccess = res.status === 200;
-      const data = isSuccess ? await res.json() : [];
+      const newLectures = await fetchLectures(service, currentDateString, activeTabId);
 
       setLectures((prevLectures) => {
         prevOrderMap.current = prevLectures.reduce(
           (prev, lecture, index) => ({ ...prev, [lecture.id]: index }),
           {},
         );
-        return data;
+        return newLectures;
       });
     })();
   }, [service, date, activeTabId]);
@@ -70,6 +70,8 @@ function Home() {
     setActiveTabId(id);
   };
 
+  const isEmpty = lectures.length === 0;
+
   return (
     <Layout>
       <div className="flex flex-col justify-center items-center px-6">
@@ -84,7 +86,8 @@ function Home() {
         />
       </div>
       <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
-      <div className="bg-base-100 p-6 h-100 max-h-screen overflow-y-auto">
+      <div className="bg-base-100 p-6 grow max-h-screen overflow-y-auto">
+        {isEmpty && <div className="animation slideInLeft">랭킹 데이터가 없습니다!</div>}
         {lectures.map((lecture, index) => (
           <Card
             key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함
