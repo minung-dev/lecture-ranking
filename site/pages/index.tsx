@@ -8,18 +8,32 @@ import Layout from '../components/Layout';
 import DateButtonGroup from '../components/DateButtonGroup';
 import ServiceSelect from '../components/ServiceSelect';
 
-const todayString = dayjs().format('YYYY-MM-DD');
+const today = dayjs();
 
 function Home() {
   const [activeTabId, setActiveTabId] = useState('popular');
   const [service, setService] = useState('inflearn');
-  const [date, setDate] = useState(todayString);
+  const [date, setDate] = useState<dayjs.Dayjs>(today);
   const prevOrderMap = useRef<{ [key: string]: number }>({});
   const [lectures, setLectures] = useState<Lecture[]>([]);
   useEffect(() => {
     (async () => {
+
+      // const prevDateString = date.add(-1, 'day').format('YYYY-MM-DD');
+      const currentDateString = date.format('YYYY-MM-DD');
+      // const nextDateString = date.add(1, 'day').format('YYYY-MM-DD');
+
+      // NOTE: 미리 api 호출해서 캐싱해두는 목적
+      // fetch(
+      //   `/api/lectures/${service}/${prevDateString}/${activeTabId}`,
+      // );
+      // fetch(
+      //   `/api/lectures/${service}/${nextDateString}/${activeTabId}`,
+      // );
+
+
       const res = await fetch(
-        `/api/lectures/${service}/${date}/${activeTabId}`,
+        `/api/lectures/${service}/${currentDateString}/${activeTabId}`,
       );
 
       const isSuccess = res.status === 200;
@@ -36,12 +50,12 @@ function Home() {
   }, [service, date, activeTabId]);
 
   const handlePrev = () => {
-    const prevDate = dayjs(date).add(-1, 'day').format('YYYY-MM-DD');
+    const prevDate = dayjs(date).add(-1, 'day');
     setDate(prevDate);
   };
 
   const handleNext = () => {
-    const prevDate = dayjs(date).add(1, 'day').format('YYYY-MM-DD');
+    const prevDate = dayjs(date).add(1, 'day');
     setDate(prevDate);
   };
 
@@ -64,7 +78,7 @@ function Home() {
         </h1>
         <ServiceSelect value={service} onChange={handleSelect} />
         <DateButtonGroup
-          date={date}
+          date={date.format('YYYY-MM-DD')}
           onPrevClick={handlePrev}
           onNextClick={handleNext}
         />
