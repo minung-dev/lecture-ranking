@@ -10,15 +10,16 @@ import ServiceSelect from '../components/ServiceSelect';
 
 const today = dayjs();
 
-const fetchLectures = async (service: string, date: string, type: string): Promise<Lecture[]> => {
-  const res = await fetch(
-    `/api/lectures/${service}/${date}/${type}`,
-  );
+const fetchLectures = async (
+  service: string,
+  date: string,
+  type: string,
+): Promise<Lecture[]> => {
+  const res = await fetch(`/api/lectures/${service}/${date}/${type}`);
 
   const isSuccess = res.status === 200;
   return isSuccess ? await res.json() : [];
 };
-
 
 function Home() {
   const [activeTabId, setActiveTabId] = useState('popular');
@@ -28,7 +29,6 @@ function Home() {
   const [lectures, setLectures] = useState<Lecture[]>([]);
   useEffect(() => {
     (async () => {
-
       // const prevDateString = date.add(-1, 'day').format('YYYY-MM-DD');
       const currentDateString = date.format('YYYY-MM-DD');
       // const nextDateString = date.add(1, 'day').format('YYYY-MM-DD');
@@ -37,7 +37,11 @@ function Home() {
       // fetchLectures(service, prevDateString, activeTabId);
       // fetchLectures(service, nextDateString, activeTabId);
 
-      const newLectures = await fetchLectures(service, currentDateString, activeTabId);
+      const newLectures = await fetchLectures(
+        service,
+        currentDateString,
+        activeTabId,
+      );
 
       setLectures((prevLectures) => {
         prevOrderMap.current = prevLectures.reduce(
@@ -87,7 +91,13 @@ function Home() {
       </div>
       <Tabs activeId={activeTabId} onItemClick={handleTabItemClick} />
       <div className="bg-base-100 p-6 grow max-h-screen overflow-y-auto">
-        {isEmpty && <div className="animation slideInLeft">랭킹 데이터가 없습니다!</div>}
+        {isEmpty && (
+          <div className="animation slideInLeft text-center">
+            랭킹 데이터가 없습니다!
+            <br />
+            이전이나 다음을 눌러주세요!
+          </div>
+        )}
         {lectures.map((lecture, index) => (
           <Card
             key={`${lecture.id}-${index}`} // NOTE: key에 index를 포함해서 order가 달라지면 리랜더링으로 애니메이션이 동작하도록 함
