@@ -16,7 +16,7 @@ export default async function handler(
 
   try {
     const data = await fetch(
-      `https://raw.githubusercontent.com/hmu332233/action.new-lecture/main/action/history/${service}/${date}.json`,
+      `https://raw.githubusercontent.com/minung-dev/lecture-ranking/main/action/history/${service}/${date}.json`,
     ).then((res) => res.json());
 
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
