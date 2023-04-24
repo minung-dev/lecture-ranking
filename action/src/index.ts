@@ -84,7 +84,7 @@ const createLectures = async (url: string, converter: Converter) => {
 };
 
 async function run() {
-  const keys = ['goorm', 'inflearn', 'udemyDev'];
+  const keys = ['goorm', 'inflearn'];
 
   for (let key of keys) {
     const { api, converter } = runnerMap[key];
