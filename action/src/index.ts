@@ -99,15 +99,13 @@ async function run() {
       popularFree: await getLecture(api.popularFree),
     };
 
-    console.log(results)
-
     // 마지막 id 앞 lecture만 남기기
     // const data = fs.readFileSync(`./history/${key}/last.json`);
     // const { id } = JSON.parse(data.toString());
     // const index = lectures.findIndex(lecture => lecture.id === id);
     // const recentLectures = lectures.slice(0, index);
 
-    // createHistoryFile(key, results);
+    createHistoryFile(key, results);
     // await createHistoryIssue(key, recentLectures);
   }
 
