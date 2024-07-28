@@ -39,19 +39,19 @@ const runnerMap: RunnerMap = {
   },
   inflearn: {
     api: {
-      latest: 'https://www.inflearn.com/api/courses?order=recent&page=1',
-      popular: 'https://www.inflearn.com/api/courses?order=popular',
-      popularPaid: 'https://www.inflearn.com/api/courses?charge=paid&order=popular',
-      popularFree: 'https://www.inflearn.com/api/courses?charge=free&order=popular',
+      latest: 'https://www.inflearn.com/courses/client/api/v1/course/search?isDiscounted=false&isNew=false&pageNumber=1&pageSize=60&sort=RECENT&types=ONLINE',
+      popular: 'https://www.inflearn.com/courses/client/api/v1/course/search?isDiscounted=false&isNew=false&pageNumber=1&pageSize=60&sort=POPULAR&types=ONLINE',
+      popularPaid: 'https://www.inflearn.com/courses/client/api/v1/course/search?charge=PAID&isDiscounted=false&isNew=false&pageNumber=1&pageSize=60&sort=POPULAR&types=ONLINE',
+      popularFree: 'https://www.inflearn.com/courses/client/api/v1/course/search?charge=FREE&isDiscounted=false&isNew=false&pageNumber=1&pageSize=60&sort=POPULAR&types=ONLINE',
     },
-    converter: ({ courses }) => (
-      courses.map((item: any) => {
+    converter: ({ data: { items } }) => (
+      items.map(({ course, instructor }: any) => {
         return {
-          id: item.id,
-          title: item.title,
-          url: `https://www.inflearn.com/course/${item.slug}`,
+          id: course.id,
+          title: course.title,
+          url: `https://www.inflearn.com/course/${course.slug}`,
           image: '',
-          instructor: item._.instructors[0]._.user.name,
+          instructor: instructor.name,
         };
       })
     ),
