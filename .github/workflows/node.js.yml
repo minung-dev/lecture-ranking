@@ -15,21 +15,21 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       # with:
       #   ref: data
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         # cache: 'yarn'
 
     - name: Cache node modules
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ./action/node_modules
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -41,7 +41,7 @@ jobs:
 
     # FIXME: 마지막 sha 기준으로 빌드 확인하도록 변경하기
     # - name: Cache build file
-    #   uses: actions/cache@v2
+    #   uses: actions/cache@v3
     #   id: cache_dist
     #   with:
     #     path: dist
